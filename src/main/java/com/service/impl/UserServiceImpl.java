@@ -24,7 +24,6 @@ public class UserServiceImpl implements UserService {
 
     /**
      * 根据id删除用户
-     *
      * @param u_id
      * @return
      */

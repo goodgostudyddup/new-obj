@@ -5,6 +5,7 @@ import com.mybatisutil.MybatisUtil;
 import com.pojo.User;
 import com.service.UserService;
 import com.sun.org.apache.xpath.internal.operations.Bool;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.stereotype.Service;
@@ -72,5 +73,8 @@ public class UserServiceImpl implements UserService {
         return this.userMapper.selectUserByAllField(user);
     }
 
-
+    @Override
+    public Map<String,Object>  login(int u_id) {
+        return userMapper.login(u_id);
+    }
 }

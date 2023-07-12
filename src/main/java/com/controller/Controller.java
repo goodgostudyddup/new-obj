@@ -3,8 +3,10 @@ package com.controller;
 import com.pojo.User;
 import com.service.UserService;
 import com.sun.org.apache.xpath.internal.operations.Bool;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.annotation.RequestScope;
 
 import java.util.HashMap;
 import java.util.List;
@@ -16,6 +18,24 @@ import java.util.Objects;
 public class Controller {
     @Autowired
     UserService userService;
+
+    /**
+     * 接口名:login
+     * 请求方式: post
+     * 需要参数:u_id u_pwd
+     * 返回类型 Boolean
+     * 用途:登录
+     */
+    @RequestMapping(value = "login",method = RequestMethod.POST)
+    @ResponseBody
+    public boolean login(User user){
+        System.out.println("login  " +user.toString());
+        Map<String,Object> map = new HashMap<>();
+        map=userService.login(user.getU_id());
+        return map.get("u_pwd").equals(user.getU_pwd())==true;
+
+    }
+
 
     /**
      * 接口名:selectAll

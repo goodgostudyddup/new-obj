@@ -6,8 +6,8 @@
 
         <main class="mt-36">
             <div class="text-center space-y-16">
-                <md-icon class="rotate">deployed_code</md-icon>
-                <p class="text-black/75 italic">
+                <md-icon class="rotate text-[var(--md-sys-color-tertiary)]">deployed_code</md-icon>
+                <p class="italic">
                     还在开发呢
                 </p>
             </div>

@@ -1,15 +1,10 @@
 import { defineStore } from "pinia";
 import axios from "axios";
-
-type User = {
-    u_id: number,
-    u_name: string,
-    u_pwd: string
-}
+import { User, Users } from "@/hooks/useUser";
 
 const useUserStore = defineStore('user_store', {
     state: () => ({
-        users: [] as User[],
+        users: [] as Users,
     }),
     getters: {
         getUsers: (s) => s.users,
@@ -47,7 +42,7 @@ const useUserStore = defineStore('user_store', {
         /**
          * 查找用户列表的每一个元素的ID、返回用户名、密码，三者任意一个属性包含了指定字符串的对象的数组
          */
-        searchByAnyField(keyword: string): User[] {
+        searchByAnyField(keyword: string): Users {
             return this.users.filter(e => e.u_id.toString() == keyword || e.u_name.includes(keyword) || e.u_pwd.includes(keyword))
         },
 

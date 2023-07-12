@@ -8,7 +8,7 @@ const useAccountStore = defineStore('account_store', {
         user: {
             name: '',
             password: '',
-            phone: ''
+            phone: undefined as undefined | number
         },
     }),
     getters: {
@@ -16,7 +16,7 @@ const useAccountStore = defineStore('account_store', {
         getIsLogin: (s) => s.isLogin,
     },
     actions: {
-        async isExist(id: string) {
+        async isExist(id: number) {
             return await axios.get('/api/selectUserById', {
                 params: {
                     u_id: id
@@ -32,6 +32,11 @@ const useAccountStore = defineStore('account_store', {
                 u_pwd: u_pwd,
             })
             if(res.data.length !== 0) {
+                this.setUser({
+                    u_id: res.data[0].u_id,
+                    u_name: res.data[0].u_name,
+                    u_pwd: res.data[0].u_pwd,
+                })
                 return true
             }
             return false
@@ -56,7 +61,13 @@ const useAccountStore = defineStore('account_store', {
         logout() {
             this.isLogin = false
         },
-    }
+        setUser(e: User) {
+            this.user.phone = e.u_id
+            this.user.name = e.u_name
+            this.user.password = e.u_pwd
+        }
+    },
+    persist: true,
 })
 
 export { useAccountStore }

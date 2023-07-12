@@ -2,30 +2,29 @@
     <div>
         <header>
             <Display msg="注册"></Display>
-            <p class="text-xs">已经拥有账户了？前往<a @click="router.push('/login')"
-                    class="text-blue-500 hover:underline underline-offset-2">登录</a>。</p>
+            <p class="text-xs">已经拥有账户了？前往<a @click="router.push('/login')">登录</a>。</p>
         </header>
 
         <main>
             <form>
                 <md-outlined-text-field 
-                    :error="userActive.isExists"
-                    :supportingText="userActive.isExists ? '账户已存在' : '账户可用'"
-                    v-model="user.phone"
+                    :error="registerActive.isExists"
+                    :supportingText="registerActive.isExists ? '账户已存在' : '账户可用'"
+                    v-model="user.get().u_id"
                     maxlength="11"
                     label="手机号"
                 >
                     <md-icon slot="leadingicon">phone</md-icon>
                 </md-outlined-text-field>
                 <md-outlined-text-field 
-                    v-model="user.name"
+                    v-model="user.get().u_name"
                     maxlength="255"
                     label="用户名"
                 >
                     <md-icon slot="leadingicon">face</md-icon>
                 </md-outlined-text-field>
                 <md-outlined-text-field
-                    v-model="user.password"
+                    v-model="user.get().u_pwd"
                     maxlength="255"
                     type="password"
                     label="密码"
@@ -35,8 +34,8 @@
                 
                 <div class="flex justify-end gap-2">
                     <md-text-button type="reset">重置</md-text-button>
-                    <md-filled-button @click="submit" :disabled="!userActive.isPass()">
-                        <template v-if="registerPendding">
+                    <md-filled-button @click="submit" :disabled="!registerActive.isPass()">
+                        <template v-if="registerActive.pendding">
                             <md-icon slot="icon" class="rotate">cached</md-icon>
                         </template>
                         <template v-else>
@@ -46,8 +45,10 @@
                     </md-filled-button>
                 </div>
 
-                <div v-if="registerError" class="text-[var(--md-sys-color-error)] text-right text-xs">
-                    似乎出现了意外
+                <div v-if="registerActive.isRegisterError" class="text-[var(--md-sys-color-error)] text-right text-xs">
+                    <p type="error">
+                        似乎出现了意外
+                    </p>
                 </div>
             </form>
         </main>
@@ -56,53 +57,48 @@
 
 <script setup lang="ts">
 import { Display } from '@/components/Text';
+import { useUser } from '@/hooks/useUser';
 import { useAccountStore } from '@/store/useAccountStore';
-import { reactive, ref, watchEffect } from 'vue';
+import { reactive, watchEffect } from 'vue';
 import { useRouter } from 'vue-router';
 
 const account = useAccountStore()
-const user = reactive({
-    phone: '',
-    name: '',
-    password: ''
-})
+const user = useUser()
 
-const userActive = reactive({
+const registerActive = reactive({
     isExists: false,
-    isNotNull: () => user.phone.length > 0 && user.name.length > 0 && user.password.length > 0,
-    isPass: () => userActive.isNotNull() && !userActive.isExists
+    isPass: () => user.isNotNull() && !registerActive.isExists,
+    pendding: false,
+    isRegisterError: false,
 })
 
 
 watchEffect(() => {
-    if (user.phone.length > 0) {
-        account.isExist(user.phone).then(res => {
-            userActive.isExists = res.data
+    if (user.isValid(user.get().u_id)) {
+        account.isExist(user.get().u_id).then(res => {
+            registerActive.isExists = res.data
         })
     }
-
 })
 
 
 const router = useRouter()
 
-const registerPendding = ref(false)
-const registerError = ref(false)
 const submit = async () => {
-    registerPendding.value = true
+    registerActive.pendding = true
     let isSuccess = await account.register({
-        u_id: parseInt(user.phone),
-        u_name: user.name,
-        u_pwd: user.password,
+        u_id: user.get().u_id,
+        u_name: user.get().u_name,
+        u_pwd: user.get().u_pwd,
     })
 
-    registerPendding.value = false
+    registerActive.pendding = false
 
     if (isSuccess) {
         router.push('/login')
     }
 
-    registerError.value = true
+    registerActive.isRegisterError = true
 }
 
 

@@ -11,15 +11,16 @@
             </div>
 
             <table class="rounded-xl border overflow-clip w-full">
-                <thead class="bg-gray-50 border-b">
+                <thead class="bg-[var(--md-sys-color-surface-container-lowest)] border-b border-[var(--md-sys-color-outline)]">
                     <tr class="font-semibold">
-                        <td>编号</td>
-                        <td>用户名</td>
-                        <td>密码</td>
-                        <td>修改</td>
+                        <th>编号</th>
+                        <th>用户名</th>
+                        <th>密码</th>
+                        <th>修改</th>
                     </tr>
                 </thead>
-                <tbody class="bg-gray-50/75 rounded-xl space-y-4">
+                
+                <tbody class="bg-[var(--md-sys-color-surface-container-lowest)] rounded-xl space-y-4">
                     <tr v-for="e in filter" :key="e.u_id">
                         <td>{{ e.u_id }}</td>
                         <td>{{ e.u_name }}</td>
@@ -96,7 +97,7 @@ const search = reactive({
  * TSX Area
  */
 const SearchInput = () => (
-    <input type="search" value={search.keyword} onInput={e => search.keyword = (e.target as HTMLInputElement).value} class="rounded-md px-4 py-2 outline-none focus:ring border dark:border-none hover:shadow-md" placeholder='Search'></input>
+    <input type="search" value={search.keyword} onInput={e => search.keyword = (e.target as HTMLInputElement).value} class="rounded-md px-4 py-2 outline-none hover:shadow-md" placeholder='Search'></input>
 )
 
 const RefreshButton = () => (
@@ -134,8 +135,9 @@ input {
     transition: all 0.15s;
 }
 
+th,
 td {
-    @apply px-4 py-2;
+    @apply px-4 py-2 text-start;
 }
 
 </style>

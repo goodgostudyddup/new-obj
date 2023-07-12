@@ -10,7 +10,6 @@
                 </MenuButton>
                 <MenuItems v-show="open" class="absolute top-14 bg-white border rounded-md flex">
                     <MenuItem>
-                        <light-dark-switch sync></light-dark-switch>
                     </MenuItem>
                 </MenuItems>
             </Menu>

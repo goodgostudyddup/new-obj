@@ -18,6 +18,37 @@
         @apply flex flex-col gap-2 max-w-md;
     }
 
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    b {
+        @apply text-[var(--md-sys-color-primary)];
+    }
+
+    a {
+        @apply text-blue-500 dark:text-blue-400 hover:underline underline-offset-2;
+    }
+
+    p,
+    td,
+    th {
+        @apply text-[var(--md-sys-color-secondary)];
+    }
+    p[type="error"] {
+        @apply text-[var(--md-sys-color-error)];
+    }
+
+    * {
+        @apply ring-[var(--md-sys-color-outline)];
+    }
+
+    input {
+        @apply bg-[var(--md-sys-color-surface-container-highest)] text-[var(--md-sys-color-on-surface)];
+    }
+
     :root {
         --md-sys-color-background: #f7fbf2;
         --md-sys-color-on-background: #181d18;
@@ -57,7 +88,7 @@
         --md-sys-color-error-container: #da342e;
         --md-sys-color-on-error-container: #ffffff;
     }
-    :root dark {
+    html.dark  {
         --md-sys-color-background: #101510;
         --md-sys-color-on-background: #e0e4dc;
         --md-sys-color-surface: #101510;

@@ -4,7 +4,7 @@
             <NavigationRail :open="open" :setOpen="setOpen" :togglePanel="togglePanel"></NavigationRail>
         </nav>
 
-        <main class="flex-grow" :class="open ? 'ml-44' : 'ml-20'">
+        <main class="flex-grow bg-[var(--md-sys-color-surface-container-low)]" :class="open ? 'ml-44' : 'ml-20'">
             <TopNavigation></TopNavigation>
             <div class="max-w-6xl mx-auto px-4">
                 <router-view v-slot="{ Component }">
@@ -12,28 +12,6 @@
                 </router-view>
             </div>
         </main>
-        <!-- <div class="border bg-purple-50 w-full">
-            <div class="p-4">
-    
-                <table class="table table-striped">
-                    <thead>
-                    <tr>
-                        <td>编号[u_id]</td>
-                        <td>用户名[u_name]</td>
-                        <td>密码[u_pwd]</td>
-                        <td>修改</td>
-                    </tr>
-                    </thead>
-                    <tbody id="gridId">
-                    <tr>
-                        <td>未请求到数据</td>
-                    </tr>
-                    </tbody>
-                    
-                </table>
-
-            </div>
-        </div> -->
 
     </main>
 </template>

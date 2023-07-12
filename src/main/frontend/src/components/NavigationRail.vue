@@ -1,28 +1,34 @@
 <template>
     <nav class="bg-[var(--md-sys-color-surface)] h-screen" :class="props.open ? 'w-44' : 'w-20'">
-        <div class="flex flex-col px-4" :class="props.open ? 'items-start' : 'items-center'">
-            <div class="flex justify-center items-center h-14">
-                <md-standard-icon-button @click="props.togglePanel">
-                    <md-icon>menu</md-icon>
-                </md-standard-icon-button>
+        <div class="flex flex-col justify-between px-4 pb-4 h-full">
+            <div class="flex flex-col" :class="props.open ? 'items-start' : 'items-center'">
+                <div class="flex justify-center items-center h-14">
+                    <md-standard-icon-button @click="props.togglePanel">
+                        <md-icon>menu</md-icon>
+                    </md-standard-icon-button>
+                </div>
+                <ul class="flex flex-col gap-2">
+                    <li>
+                        <!-- <img src="../images/1.png" alt=""> -->
+                        <!-- <span class="text-xs">欢迎您！管理员</span> -->
+                    </li>
+                    <template v-for="e in routerList" :key="e.path">
+                        <NavigationButton :label="e.label" :path="e.path" :icon="e.icon"></NavigationButton>
+                    </template>
+                </ul>
             </div>
-            <ul class="flex flex-col gap-2">
-                <li>
-                    <!-- <img src="../images/1.png" alt=""> -->
-                    <!-- <span class="text-xs">欢迎您！管理员</span> -->
-                </li>
-                <template v-for="e in routerList" :key="e.path">
-                    <NavigationButton :label="e.label" :path="e.path" :icon="e.icon"></NavigationButton>
-                </template>
-            </ul>
+            
+            <div>
+                <DarkSwitch></DarkSwitch>
+            </div>
         </div>
-
     </nav>
 </template>
 
 <script setup lang="tsx">
 import { onMounted, onUnmounted, reactive, watch } from 'vue';
 import { useRouter } from 'vue-router';
+import DarkSwitch from './DarkSwitch.vue';
 
 const props = defineProps<{
     open: boolean,

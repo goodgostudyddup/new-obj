@@ -1,4 +1,4 @@
-package com.pojo;
+package com.bean;
 
 import lombok.*;
 
@@ -9,7 +9,7 @@ import lombok.*;
 @AllArgsConstructor
 @ToString
 public class User {
-    int u_id;
-    String u_name;
-    String u_pwd;
+    private Integer u_id;
+    private String u_name;
+    private String u_pwd;
 }

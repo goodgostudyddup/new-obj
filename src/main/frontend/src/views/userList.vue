@@ -10,6 +10,8 @@
                 <RefreshButton></RefreshButton>
             </div>
 
+            <UserListChips></UserListChips>
+
             <table class="rounded-xl border overflow-clip w-full">
                 <thead class="bg-[var(--md-sys-color-surface-container-lowest)] border-b border-[var(--md-sys-color-outline)]">
                     <tr class="font-semibold">
@@ -56,7 +58,7 @@ import { Display } from '@/components/Text';
 import { computed, onMounted, reactive, ref } from 'vue';
 import { User, useUserStore } from '@/store/useUserStore'
 import EditUserDialog from '@/components/EditUserDialog.vue';
-
+import UserListChips from '@/components/UserListChips.vue'
 
 const userStore = useUserStore()
 

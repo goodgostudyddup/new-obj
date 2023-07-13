@@ -24,5 +24,8 @@
     <select id="selectUserByAllField" resultType="map">
         select * from user where u_id=#{u_id} and u_pwd=#{u_pwd}
     </select>
+    <select id="selectUserByIdAndPassword" resultType="map">
+        select * from user where  u_id=#{u_id} and u_pwd=#{u_pwd}
+    </select>
 
 </mapper>

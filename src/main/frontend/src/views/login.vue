@@ -9,7 +9,8 @@
             <form>
                 <md-outlined-text-field 
                     :error="loginActive.isLoginError"
-                    v-model="user.get().u_id"
+                    v-model.number="user.get().u_id"
+                    type="number"
                     label="手机号"
                 >
                     <md-icon slot="leadingicon">phone</md-icon>
@@ -68,6 +69,9 @@ const router = useRouter()
 
 const submit = async () => {
     loginActive.loginPendding = true
+
+    console.log(user.get());
+    
     let isSuccess = await account.login({
         u_id: user.get().u_id,
         u_pwd: user.get().u_pwd,

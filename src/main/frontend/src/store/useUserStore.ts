@@ -16,8 +16,7 @@ const useUserStore = defineStore('user_store', {
          */
         async request(): Promise<void> {
             try {
-                this.users = await (await axios.post('/api/selectAll')).data
-                console.log(this.users);
+                this.users = await (await axios.get('/api/user/findAll')).data
             } catch {
                 this.users = [
                     {
@@ -52,9 +51,7 @@ const useUserStore = defineStore('user_store', {
          */
         async refresh(): Promise<boolean> {
             try {
-                this.users = await (await axios.post('/api/selectAll')).data
-                console.log(this.users);
-                
+                this.users = await (await axios.get('/api/user/findAll')).data
             } catch {
                 return false
             }
@@ -65,7 +62,7 @@ const useUserStore = defineStore('user_store', {
          * 移除指定的对象（包括服务器和本地）
          */
         async remove(e: User) {
-            await axios.get('/api/deleteUser', {
+            await axios.delete('/api/user/deleteOneById', {
                 params: {
                     u_id: e.u_id
                 }
@@ -76,14 +73,12 @@ const useUserStore = defineStore('user_store', {
 
         edit(target: User, e: User) {
             console.log(target);
-            
-            axios.post('/api/alterUser', {
+            axios.post('/api/user/alterUser', {
                 u_id: e.u_id,
                 u_name: e.u_name,
                 u_pwd: e.u_pwd
             }).then(() => {
                 console.log('success');
-                
             })
         }
     }

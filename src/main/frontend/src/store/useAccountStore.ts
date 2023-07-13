@@ -8,7 +8,7 @@ const useAccountStore = defineStore('account_store', {
         user: {
             name: '',
             password: '',
-            phone: undefined as undefined | number
+            phone: ''
         },
     }),
     getters: {
@@ -16,26 +16,26 @@ const useAccountStore = defineStore('account_store', {
         getIsLogin: (s) => s.isLogin,
     },
     actions: {
-        async isExist(id: number) {
-            return await axios.get('/api/selectUserById', {
+        async isExist(id: string) {
+            return await axios.get('/api/user/findOneById', {
                 params: {
                     u_id: id
                 }
             })
         },
         async login({ u_id, u_pwd}:{
-            u_id: number,
+            u_id: string,
             u_pwd: string
         }) {
-            let res = await axios.post('/api/selectUserByAllField', {
+            let res = await axios.post('/api/user/login', {
                 u_id: u_id,
                 u_pwd: u_pwd,
             })
-            if(res.data.length !== 0) {
+            if(res.data !== '') {
                 this.setUser({
-                    u_id: res.data[0].u_id,
-                    u_name: res.data[0].u_name,
-                    u_pwd: res.data[0].u_pwd,
+                    u_id: res.data.u_id,
+                    u_name: res.data.u_name,
+                    u_pwd: res.data.u_pwd,
                 })
                 return true
             }
@@ -44,7 +44,7 @@ const useAccountStore = defineStore('account_store', {
         async register(e: User): Promise<boolean> {
             var res = null
             try {
-                res = await axios.post('/api/addUser', {
+                res = await axios.post('/api/user/register', {
                     u_id: e.u_id,
                     u_name: e.u_name,
                     u_pwd: e.u_pwd,

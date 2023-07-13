@@ -22,7 +22,7 @@ const toggleDark = () => {
 }
 
 watch(isDark, () => {
-    document.documentElement.classList[isDark.value ? 'remove': 'add']('dark')
+    document.documentElement.classList[isDark.value ? 'add': 'remove']('dark')
 })
 </script>
 

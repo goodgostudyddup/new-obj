@@ -13,12 +13,10 @@ public class MybatisUtil {
 
 
     static {
-
         try {
             String resource = "Mybatis-Config.xml";
             InputStream inputStream = Resources.getResourceAsStream(resource);
             sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
-
         } catch (IOException e) {
             e.printStackTrace();
         }

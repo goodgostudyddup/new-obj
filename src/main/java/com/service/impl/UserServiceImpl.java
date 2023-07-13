@@ -2,79 +2,97 @@ package com.service.impl;
 
 import com.mapper.UserMapper;
 import com.mybatisutil.MybatisUtil;
-import com.pojo.User;
+import com.bean.User;
 import com.service.UserService;
 import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.NestedRuntimeException;
+import org.springframework.dao.DataAccessException;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.Connection;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
 @Service
 public class UserServiceImpl implements UserService {
-    SqlSession sqlSession = MybatisUtil.getSqlSession();
-    UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+    private final SqlSession sqlSession = MybatisUtil.getSqlSession();
+    private final UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
 
-    @Override
-    public List<Map<String, Object>> getlist() {
-        return userMapper.getlist();
-    }
 
-    /**
-     * 根据id删除用户
-     *
-     * @param u_id
-     * @return
-     */
-    @Override
-    public boolean deleteUser(int u_id) {
-        System.out.println("impl");
-        boolean flag = userMapper.deleteUser(u_id) > 0;
-        sqlSession.commit();
-        return flag;
-    }
 
     /**
      * 修改用户信息
      * u_id 被修改数据的id
      * uname upwd 修改后的数值
+     * @needRename
      */
     @Override
     public boolean alterUser(User user) {
-        boolean d = deleteUser(user.getU_id());
-        boolean a = addUser(user);
+        Boolean d = this.deleteOneById(user.getU_id());
+        Boolean a = null;
+        try {
+            a = this.pushOne(user);
+        } catch (Exception e) {
+            System.out.println("The primary key already exist.");
+            return false;
+        }
         sqlSession.commit();
-        if (d == a) return true;
-        else return false;
+        return d.booleanValue() == a.booleanValue();
+    }
+
+    /**
+     * @final
+     */
+    @Override
+    public List<User> getAll() {
+        return userMapper.getAll();
+    }
+
+
+
+    /**
+     * @final
+     */
+    @Override
+    public User findOneById(Integer u_id) {
+        return this.userMapper.findOneById(u_id);
+    }
+
+    /**
+     * @final
+     */
+    @Override
+    public User findOneByIdAndPassword(Integer u_id, String u_pwd) {
+        return this.userMapper.findOneByIdAndPassword(u_id, u_pwd);
+    }
+
+    /**
+     * 根据id删除用户
+     * @final
+     */
+    @Override
+    public Boolean deleteOneById(Integer u_id) {
+        Boolean isSuccess = this.userMapper.deleteOneById(u_id);
+        sqlSession.commit();
+        return isSuccess;
     }
 
     /**
      * 添加用户
+     * @final
      */
     @Override
-    public boolean addUser(User user) {
-        boolean flag = userMapper.addUser(user) > 0;
+    public Boolean pushOne(User user) {
+        Boolean isSuccess = userMapper.pushOne(user);
         sqlSession.commit();
-        return flag;
+        return isSuccess;
     }
 
-    @Override
-    public boolean selectUserById(int u_id) {
-        return !Objects.isNull(userMapper.selectUserById(u_id));
-    }
-
-    @Override
-    public List<Map<String, User>> selectUserByAllField(User user) {
-        return this.userMapper.selectUserByAllField(user);
-    }
-
-    @Override
-    public Map<String,Object>  login(int u_id) {
-        return userMapper.login(u_id);
-    }
 }

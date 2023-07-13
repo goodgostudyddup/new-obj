@@ -1,23 +1,22 @@
 package com.service;
 
-import com.pojo.User;
-import com.sun.org.apache.xpath.internal.operations.Bool;
-import org.apache.ibatis.annotations.Param;
 
+import com.bean.User;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 import java.util.Map;
 
 public interface UserService {
-    List<Map<String, Object>> getlist();
-    boolean deleteUser(int u_id);
 
-    boolean alterUser(User user);
+    /**
+     * @needRename
+     */
+    public boolean alterUser(User user);
 
-    boolean addUser(User user);
 
-    boolean selectUserById(int u_id);
-
-    public List<Map<String, User>> selectUserByAllField(User user);
-
-    Map<String,Object>  login(int u_id);
+    public List<User> getAll();
+    public User findOneById(Integer u_id);
+    public User findOneByIdAndPassword(Integer u_id, String u_pwd);
+    public Boolean deleteOneById(Integer u_id);
+    public Boolean pushOne(User user);
 }

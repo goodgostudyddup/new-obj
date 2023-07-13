@@ -25,9 +25,7 @@ export default defineConfig({
   // base: '/new-obj',
   build: {
     emptyOutDir: true,
-    // to docs
     // outDir: '../../../docs',
-    // to WEB-INF
     outDir: '../webapp',
     sourcemap: true,
     manifest: true,

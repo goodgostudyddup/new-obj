@@ -21,6 +21,7 @@
     <!--    每一个mapper.xml都需要在mybatis核心配置文件中注册-->
     <mappers>
         <mapper resource="UserMapper.xml"/>
+        <mapper resource="zbMapper.xml"/>
     </mappers>
 
 </configuration>

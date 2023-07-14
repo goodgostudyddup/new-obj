@@ -31,11 +31,5 @@
     <delete id="delete">
         delete from accountbook where j_id=#{j_id}
     </delete>
-    <select id="getUserAll" resultType="com.bean.accountBook">
-        select * from accountbook where u_id=#{u_id}
-    </select>
-    <insert id="pushOne">
-        insert into accountbook(u_id, szqk, money, lx, bz) values (#{u_id},#{szqk},#{money},#{lx},#{bz})
-    </insert>
 
 </mapper>

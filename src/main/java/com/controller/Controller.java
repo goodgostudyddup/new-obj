@@ -23,22 +23,6 @@ public class Controller {
     @Autowired
     private UserService userService;
 
-    /**
-     * 接口名:login
-     * 请求方式: post
-     * 需要参数:u_id u_pwd
-     * 返回类型 Boolean
-     * 用途:登录
-     */
-    @RequestMapping(value = "login",method = RequestMethod.POST)
-    @ResponseBody
-    public boolean login(User user){
-        System.out.println("login  " +user.toString());
-        Map<String,Object> map = new HashMap<>();
-        map=userService.login(user.getU_id());
-        return map.get("u_pwd").equals(user.getU_pwd())==true;
-
-    }
 
 
     /**

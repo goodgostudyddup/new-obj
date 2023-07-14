@@ -33,4 +33,20 @@ const props = defineProps<{
 }>()
 </script>
 
-<style scoped></style>
+<style scoped>
+li h1 {
+    animation: opacityFromZeroToFull 0.5s;
+    opacity: 1;
+}
+@keyframes opacityFromZeroToFull {
+    from {
+        opacity: 0;
+    } to {
+        opacity: 1;
+    }
+}
+* {
+    @apply select-none;
+}
+
+</style>

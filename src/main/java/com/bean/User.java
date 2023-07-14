@@ -12,5 +12,5 @@ public class User {
     private Integer u_id;
     private String u_name;
     private String u_pwd;
-    private boolean isAdmin;
+    private Boolean isAdmin;
 }

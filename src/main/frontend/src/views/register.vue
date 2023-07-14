@@ -92,6 +92,7 @@ const submit = async () => {
         u_id: user.get().u_id,
         u_name: user.get().u_name,
         u_pwd: user.get().u_pwd,
+        isAdmin: false,
     })
 
     registerActive.pendding = false

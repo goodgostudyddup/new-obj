@@ -8,7 +8,8 @@ const useAccountStore = defineStore('account_store', {
         user: {
             name: '',
             password: '',
-            phone: ''
+            phone: '',
+            isAdmin: false,
         },
     }),
     getters: {
@@ -32,11 +33,7 @@ const useAccountStore = defineStore('account_store', {
                 u_pwd: u_pwd,
             })
             if(res.data !== '') {
-                this.setUser({
-                    u_id: res.data.u_id,
-                    u_name: res.data.u_name,
-                    u_pwd: res.data.u_pwd,
-                })
+                this.setUser(res.data)
                 return true
             }
             return false
@@ -65,6 +62,7 @@ const useAccountStore = defineStore('account_store', {
             this.user.phone = e.u_id
             this.user.name = e.u_name
             this.user.password = e.u_pwd
+            this.user.isAdmin = e.isAdmin
         }
     },
     persist: true,

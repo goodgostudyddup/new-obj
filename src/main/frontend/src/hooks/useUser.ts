@@ -3,15 +3,17 @@ import { reactive } from "vue"
 type User = {
     u_id: string,
     u_name: string,
-    u_pwd: string
+    u_pwd: string,
+    isAdmin: boolean
 }
 type Users = User[]
 
-function useUser(id: string = '', name: string = '', password: string = '') {
+function useUser(id: string = '', name: string = '', password: string = '', isAdmin: boolean = false) {
     const target: User = reactive({
         u_id: id,
         u_name: name,
-        u_pwd: password
+        u_pwd: password,
+        isAdmin: isAdmin,
     })
 
     const get = (): User => target
@@ -19,6 +21,7 @@ function useUser(id: string = '', name: string = '', password: string = '') {
         target.u_id = e.u_id
         target.u_name = e.u_name
         target.u_pwd = e.u_pwd
+        target.isAdmin = e.isAdmin
     }
     const setId = (e: number) => {
         target.u_id = e.toString()
@@ -28,6 +31,9 @@ function useUser(id: string = '', name: string = '', password: string = '') {
     }
     const setPassword = (e: string) => {
         target.u_pwd = e
+    }
+    const setIsAdmin = (e: boolean) => {
+        target.isAdmin = e
     }
 
     const isNotNull = (): boolean => {
@@ -43,6 +49,7 @@ function useUser(id: string = '', name: string = '', password: string = '') {
         setId,
         setName,
         setPassword,
+        setIsAdmin,
         isNotNull,
         isValid
     }

@@ -69,8 +69,6 @@ const router = useRouter()
 
 const submit = async () => {
     loginActive.loginPendding = true
-
-    console.log(user.get());
     
     let isSuccess = await account.login({
         u_id: user.get().u_id,

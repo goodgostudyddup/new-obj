@@ -10,7 +10,7 @@
                 <RefreshButton></RefreshButton>
             </div>
 
-            <UserListChips></UserListChips>
+            <UserListChips :seach-keyword="search.keyword" :set-seach-keyword="setSeachKeyword"></UserListChips>
 
             <table class="rounded-xl border overflow-clip w-full">
                 <thead class="bg-[var(--md-sys-color-surface-container-lowest)] border-b border-[var(--md-sys-color-outline)]">
@@ -18,6 +18,7 @@
                         <th>编号</th>
                         <th>用户名</th>
                         <th>密码</th>
+                        <th>身份</th>
                         <th>修改</th>
                     </tr>
                 </thead>
@@ -27,6 +28,7 @@
                         <td>{{ e.u_id }}</td>
                         <td>{{ e.u_name }}</td>
                         <td>{{ e.u_pwd }}</td>
+                        <td>{{ e.isAdmin ? '管理员' : '普通用户' }}</td>
                         <td>
                             <div>
                                 <md-standard-icon-button @click="() => {
@@ -86,12 +88,30 @@ const refresh = () => {
  * 不应该将userStore.getUsers直接输出到DOM，请经过filter方法
  */
 const filter = computed(() => {
-    return search.keyword.length !== 0 ? userStore.searchByAnyField(search.keyword) : userStore.getUsers
+    if(search.keyword.length === 0 || search.keyword.toString() === '') {
+        return userStore.getUsers
+    }
+    var r = []
+    for(let i = 0; i < search.keyword.length; i ++) {
+        r.push(
+            ...userStore.getUsers.filter(e => 
+                e.u_id.toString().includes(search.keyword[0]) || 
+                e.u_name.includes(search.keyword[0]) || 
+                e.u_pwd.includes(search.keyword[0]) || 
+                ((search.keyword.includes('管理员') || search.keyword.includes('管理')) && e.isAdmin) ||
+                ((search.keyword.includes('普通用户') || search.keyword.includes('普通') && !e.isAdmin))
+            )
+        )
+    }
+    return new Set(r)
 })
 
 const search = reactive({
-    keyword: ''
+    keyword: [] as string[]
 })
+const setSeachKeyword = (keyword: string[]) => {
+    search.keyword = keyword
+}
 
 
 
@@ -99,7 +119,7 @@ const search = reactive({
  * TSX Area
  */
 const SearchInput = () => (
-    <input type="search" value={search.keyword} onInput={e => search.keyword = (e.target as HTMLInputElement).value} class="rounded-md px-4 py-2 outline-none hover:shadow-md" placeholder='Search'></input>
+    <input type="search" value={search.keyword} onInput={e => search.keyword = (e.target as HTMLInputElement).value.split(/[\,\，]/)} class="rounded-md px-4 py-2 outline-none hover:shadow-md" placeholder='Search'></input>
 )
 
 const RefreshButton = () => (

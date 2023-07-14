@@ -1,34 +1,35 @@
 <template>
-    <md-chip-set ref="chipSetRef" @click="onChangeChipSet">
-        <md-filter-chip label="管理员"></md-filter-chip>
-        <md-filter-chip label="普通用户"></md-filter-chip>
-    </md-chip-set>
+    <TypeChips :chips="type" :chips-default-select="false" :set-current-chips="setType"></TypeChips>
+    <TypeChips :chips="props.seachKeyword.filter(e => !type.includes(e))" :chips-default-select="true" :set-current-chips="setCustomType"></TypeChips>
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import TypeChips from '@/components/TypeChips.vue'
+import { reactive } from 'vue';
 
-type MdChipSpec = MdSelected & MdLabel
-type MdSelected = {
-    selected: boolean,
+const props = defineProps<{
+    seachKeyword: string[],
+    setSeachKeyword: (keyword: string[]) => void
+}>()
+
+/**
+ * 预定义的用户类型
+ */
+const type = ['管理员', '普通用户']
+
+/**
+ * 用户类型在TypeChips中存在冲突，需要单独存储用于在setCustomType中
+ */
+const currentChips = reactive({
+    type: [] as string[],
+})
+
+const setType = (e: string[]) => {
+    currentChips.type = e
+    props.setSeachKeyword([...props.seachKeyword.filter(e => !type.includes(e)), ...e])
 }
-type MdLabel = {
-    label: string,
-}
-
-const chipSetRef = ref()
-const chipSet = computed(() => chipSetRef.value.chips)
-
-const currentChips = ref<string[]>([])
-
-const onChangeChipSet = () => {
-    currentChips.value = []
-    Array.from(chipSet.value).forEach(e => {
-        if((e as MdChipSpec).selected) {
-            currentChips.value.push((e as MdLabel).label)
-        }
-    })
-    
+const setCustomType = (e: string[]) => {
+    props.setSeachKeyword([...e, ...currentChips.type])
 }
 
 </script>

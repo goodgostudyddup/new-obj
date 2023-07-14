@@ -4,7 +4,9 @@ import { reactive, ref, watch } from "vue";
 type NavButton = {
     label: string,
     path: string,
-    icon: string
+    icon: string,
+    needAdmin: boolean,
+    needLogin: boolean,
 }
 
 const useNavigationRailStore = defineStore('navigationrail_store', () => {

@@ -5,6 +5,7 @@ import userlist from '../views/userList.vue'
 import register from '../views/register.vue'
 import login from '../views/login.vue'
 import profile from '@/views/profile.vue'
+import willPush from '@/views/willPush.vue'
 
 const routes = [
     {
@@ -26,6 +27,10 @@ const routes = [
     {
         path: '/profile',
         component: profile
+    },
+    {
+        path: '/willpush',
+        component: willPush
     },
 
 ]

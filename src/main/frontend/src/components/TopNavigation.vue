@@ -7,23 +7,13 @@
         </div>
         
         <nav class="flex items-center justify-end">
-            <Menu v-slot="{ open }">
-                <MenuButton as="template">
-                    <md-standard-icon-button>
-                        <md-icon>settings</md-icon>
-                    </md-standard-icon-button>
-                </MenuButton>
-                <MenuItems v-show="open" class="absolute top-14 border rounded-md flex">
-                    <MenuItem>
-                    </MenuItem>
-                </MenuItems>
-            </Menu>
+            <DarkSwitch></DarkSwitch>
         </nav>
     </nav>
 </template>
 
 <script setup lang="tsx">
-import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue'
+import DarkSwitch from '@/components/DarkSwitch.vue'
 import OpenNavigationRailButton from './OpenNavigationRailButton.vue';
 
 const Title = () => (

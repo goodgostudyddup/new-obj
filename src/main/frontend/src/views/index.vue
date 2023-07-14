@@ -1,7 +1,7 @@
 <template>
     <div>
         <header>
-            <Display msg="后台首页"></Display>
+            <Display msg="首页"></Display>
         </header>
 
         <main class="mt-36">

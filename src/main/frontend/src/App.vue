@@ -1,35 +1,48 @@
 <template>
-    <main class="flex flex-row min-h-screen relative">
-        <nav class="fixed top-0 left-0">
-            <NavigationRail :open="open" :setOpen="setOpen" :togglePanel="togglePanel"></NavigationRail>
-        </nav>
-
-        <main class="flex-grow bg-[var(--md-sys-color-surface-container-low)]" :class="open ? 'ml-44' : 'ml-20'">
+    <div class="relative flex flex-col w-full bg-[var(--md-sys-color-background)] h-screen max-h-screen">
+        <nav ref="topNavigationRef" class="sticky top-0 z-50 w-full">
             <TopNavigation></TopNavigation>
-            <div class="max-w-6xl mx-auto px-4">
-                <router-view v-slot="{ Component }">
-                    <component :is="Component"></component>
-                </router-view>
-            </div>
-        </main>
-
-    </main>
+        </nav>
+        <div class="relative flex h-full">
+            <NavigationRail class="flex-none"></NavigationRail>
+            <main class="relative w-full mr-2">
+                <div class="relative rounded-3xl bg-[var(--md-sys-color-surface-container-lowest)] p-4 md:p-8 overflow-y-scroll" :style="mainAvalidHeight">
+                    <router-view v-slot="{ Component }">
+                        <component :is="Component"></component>
+                    </router-view>
+                </div>
+                <footer></footer>
+            </main>
+            <aside></aside>
+        </div>
+    </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { computed, onMounted, onUnmounted, ref } from 'vue';
 import NavigationRail from './components/NavigationRail.vue'
 import TopNavigation from './components/TopNavigation.vue';
 
-const open = ref(false)
-const setOpen = (e: boolean) => {
-    open.value = e
+/**
+ * 控制main的元素高度
+ */
+const topNavigationRef = ref<HTMLElement>()
+var innerHeight = ref(window.innerHeight)
+const updateInnerHeight = () => {
+    innerHeight.value = window.innerHeight
 }
-const togglePanel = () => {
-    open.value = !open.value
-}
+onMounted(() => {
+    window.addEventListener('resize', updateInnerHeight)
+})
+onUnmounted(() => {
+    window.removeEventListener('resize', updateInnerHeight)
+})
+const mainAvalidHeight = computed(() => {
+    if (topNavigationRef.value == undefined) {
+        return ''
+    }
+    return 'height:' + (innerHeight.value - topNavigationRef.value.clientHeight - 16) + 'px'
+})
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

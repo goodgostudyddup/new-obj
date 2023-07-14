@@ -4,14 +4,17 @@
 @tailwind variants;
 
 @layer base {
+    ::-webkit-scrollbar {
+        display: none;
+    }
     * {
         /* @apply border; */
     }
     header {
-        @apply mt-8 space-y-4;
+        @apply space-y-4;
     }
     header + main {
-        @apply mt-16 space-y-8;
+        @apply space-y-8 mt-16;
     }
 
     form {
@@ -46,7 +49,7 @@
     }
 
     input {
-        @apply bg-[var(--md-sys-color-surface-container-highest)] text-[var(--md-sys-color-on-surface)];
+        @apply bg-[var(--md-sys-color-surface-container-low)] text-[var(--md-sys-color-on-surface)];
     }
 
     :root {

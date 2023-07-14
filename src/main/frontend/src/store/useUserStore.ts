@@ -20,17 +20,17 @@ const useUserStore = defineStore('user_store', {
             } catch {
                 this.users = [
                     {
-                        u_id: 1,
+                        u_id: '1',
                         u_name: '小红 样例',
                         u_pwd: 'wow 样例'
                     },
                     {
-                        u_id: 2,
+                        u_id: '2',
                         u_name: 'name 1 样例',
                         u_pwd: '00 样例'
                     },
                     {
-                        u_id: 3,
+                        u_id: '3',
                         u_name: '小李 1 样例',
                         u_pwd: 'l 样例'
                     }

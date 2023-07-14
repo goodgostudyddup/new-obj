@@ -6,7 +6,36 @@
 <mapper namespace="com.mapper.accountBookMapper">
     <!--    查询语句-->
     <select id="getall" resultType="com.bean.accountBook">
-        select * from accountbook
+        select *
+        from accountbook
     </select>
+    <select id="getUserAll" resultType="com.bean.accountBook">
+        select *
+        from accountbook
+        where u_id = #{u_id}
+    </select>
+    <insert id="pushOne">
+        insert into accountbook(u_id, szqk, money, lx, bz)
+        values (#{u_id}, #{szqk}, #{money}, #{lx}, #{bz})
+    </insert>
+    <update id="alter">
+        update accountbook
+        set szqk=#{szqk},
+            money=#{money},
+            lx=#{lx},
+            bz=#{bz},
+            date=#{date}
+        where u_id = #{u_id}
+          and j_id = #{j_id}
+    </update>
+    <delete id="delete">
+        delete from accountbook where j_id=#{j_id}
+    </delete>
+    <select id="getUserAll" resultType="com.bean.accountBook">
+        select * from accountbook where u_id=#{u_id}
+    </select>
+    <insert id="pushOne">
+        insert into accountbook(u_id, szqk, money, lx, bz) values (#{u_id},#{szqk},#{money},#{lx},#{bz})
+    </insert>
 
 </mapper>

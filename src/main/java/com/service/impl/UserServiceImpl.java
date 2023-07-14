@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserService {
             System.out.println("The primary key already exist.");
             return false;
         }
-        sqlSession.commit();
+//        sqlSession.commit();
         return d.booleanValue() == a.booleanValue();
     }
 
@@ -79,7 +79,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public Boolean deleteOneById(Integer u_id) {
         Boolean isSuccess = this.userMapper.deleteOneById(u_id);
-        sqlSession.commit();
+//        sqlSession.commit();
         return isSuccess;
     }
 
@@ -90,7 +90,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public Boolean pushOne(User user) {
         Boolean isSuccess = userMapper.pushOne(user);
-        sqlSession.commit();
+//        sqlSession.commit();
         return isSuccess;
     }
 }

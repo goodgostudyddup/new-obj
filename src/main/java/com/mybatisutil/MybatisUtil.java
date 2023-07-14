@@ -17,6 +17,8 @@ public class MybatisUtil {
             String resource = "Mybatis-Config.xml";
             InputStream inputStream = Resources.getResourceAsStream(resource);
             sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+            SqlSession session = sqlSessionFactory.openSession(true);
+//            UserMapper mapper = session.getMapper(UserMapper.class);
         } catch (IOException e) {
             e.printStackTrace();
         }

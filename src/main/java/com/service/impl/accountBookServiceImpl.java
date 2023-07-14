@@ -14,7 +14,6 @@ public class accountBookServiceImpl implements accountBookService {
     private final SqlSession sqlSession = MybatisUtil.getSqlSession();
     private final accountBookMapper accountBookMapper = sqlSession.getMapper(accountBookMapper.class);
 
-
     @Override
     public List<accountBook> getall() {
         return accountBookMapper.getall();
@@ -28,7 +27,7 @@ public class accountBookServiceImpl implements accountBookService {
     @Override
     public boolean pushOne(accountBook accountBook) {
         boolean flag= accountBookMapper.pushOne(accountBook)>0;
-        sqlSession.commit();
+//        sqlSession.commit();
         return flag;
     }
 
@@ -36,14 +35,14 @@ public class accountBookServiceImpl implements accountBookService {
     @Override
     public boolean alter(accountBook accountBook) {
         boolean flag= accountBookMapper.alter(accountBook) >0;
-        sqlSession.commit();
+//        sqlSession.commit();
         return flag;
     }
 
     @Override
     public boolean delete(int j_id) {
         boolean flag= accountBookMapper.delete(j_id) >0;
-        sqlSession.commit();
+//        sqlSession.commit();
         return flag;
     }
 }

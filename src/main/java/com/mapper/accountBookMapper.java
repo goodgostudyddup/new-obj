@@ -2,15 +2,15 @@ package com.mapper;
 
 import java.util.List;
 
-import com.bean.accountBook;
+import com.bean.AccountBook;
 
-public interface accountBookMapper {
-    List<accountBook> getall();
+public interface AccountBookMapper {
+    List<AccountBook> getall();
 
-    List<accountBook> getUserAll(int u_id);
+    List<AccountBook> getUserAll(int u_id);
 
-    int pushOne(accountBook accountBook);
+    int pushOne(AccountBook accountBook);
 
-    int alter(accountBook accountBook);
+    int alter(AccountBook accountBook);
     int delete(int j_id);
 }

@@ -8,7 +8,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class accountBook {
+public class AccountBook {
     private Integer u_id;//用户id
     private Integer j_id;//账本id
     private String szqk; //收支情况

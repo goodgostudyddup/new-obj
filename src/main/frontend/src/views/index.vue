@@ -4,19 +4,40 @@
             <Display msg="首页"></Display>
         </header>
 
-        <main class="mt-36">
-            <div class="text-center space-y-16">
-                <md-icon class="rotate text-[var(--md-sys-color-tertiary)]">deployed_code</md-icon>
-                <p class="italic">
-                    还在开发呢
-                </p>
-            </div>
-        </main>
+
+        <TabGroup>
+            <TabList as="md-tabs">
+                <Tab as="md-tab">Overview</Tab>
+                <Tab as="md-tab">Pocket</Tab>
+            </TabList>
+            <TabPanels>
+                <TabPanel>Developing
+                </TabPanel>
+                <TabPanel>Developing too
+                </TabPanel>
+            </TabPanels>
+        </TabGroup>
+
+
+        <nav class="fixed bottom-8 right-8 z-30">
+            <PocketBookCreatorFab @click="isOpen.set(true)"></PocketBookCreatorFab>
+        </nav>
+
+        <Window fixed fullscreen :is-open="isOpen.get()" :set-is-open="isOpen.set">
+            <PocketBookCreator></PocketBookCreator>
+        </Window>
     </div>
 </template>
 
 <script setup lang="ts">
+import { TabGroup, TabList, Tab, TabPanels, TabPanel } from '@headlessui/vue'
+import PocketBookCreatorFab from '@/components/PocketBookCreatorFab.vue';
+import PocketBookCreator from '@/components/PocketBookCreator.vue';
 import { Display } from '@/components/Text';
+import { useState } from '@/hooks/useState';
+import Window from '@/components/Window.vue'
+
+const isOpen = useState(false)
 </script>
 
 <style scoped>
@@ -24,10 +45,13 @@ import { Display } from '@/components/Text';
     animation: rotateAnimate 4s infinite linear;
     transform: scale(6);
 }
+
 @keyframes rotateAnimate {
     from {
         transform: rotate(0deg) scale(6);
-    } to {
+    }
+
+    to {
         transform: rotate(360deg) scale(6);
     }
 }

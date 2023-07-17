@@ -1,32 +1,32 @@
 package com.service.impl;
 
-import com.bean.accountBook;
+import com.bean.AccountBook;
+import com.mapper.AccountBookMapper;
 import com.mybatisutil.MybatisUtil;
-import com.service.accountBookService;
+import com.service.AccountBookService;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Service;
-import com.mapper.accountBookMapper;
 
 import java.util.List;
 
 @Service
-public class accountBookServiceImpl implements accountBookService {
+public class AccountBookServiceImpl implements AccountBookService {
     private final SqlSession sqlSession = MybatisUtil.getSqlSession();
-    private final accountBookMapper accountBookMapper = sqlSession.getMapper(accountBookMapper.class);
+    private final AccountBookMapper accountBookMapper = sqlSession.getMapper(AccountBookMapper.class);
 
 
     @Override
-    public List<accountBook> getall() {
+    public List<AccountBook> getall() {
         return accountBookMapper.getall();
     }
 
     @Override
-    public List<accountBook> getUserAll(int u_id) {
+    public List<AccountBook> getUserAll(int u_id) {
         return accountBookMapper.getUserAll(u_id);
         }
 
     @Override
-    public boolean pushOne(accountBook accountBook) {
+    public boolean pushOne(AccountBook accountBook) {
         boolean flag= accountBookMapper.pushOne(accountBook)>0;
         sqlSession.commit();
         return flag;
@@ -34,7 +34,7 @@ public class accountBookServiceImpl implements accountBookService {
 
 
     @Override
-    public boolean alter(accountBook accountBook) {
+    public boolean alter(AccountBook accountBook) {
         boolean flag= accountBookMapper.alter(accountBook) >0;
         sqlSession.commit();
         return flag;

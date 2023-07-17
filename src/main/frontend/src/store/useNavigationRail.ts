@@ -37,7 +37,7 @@ const useNavigationRailStore = defineStore('navigationrail_store', () => {
     watch(windowSize, () => {
         if (windowSize.width >= 1280) {
             setIsOpen(true)
-        } else if (windowSize.width <= 640) {
+        } else if (windowSize.width <= 960) {
             setIsOpen(false)
         }
     })

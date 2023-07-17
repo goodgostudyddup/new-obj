@@ -30,3 +30,4 @@ app
 .use(pinia)
 .use(router)
 .mount('#app')
+

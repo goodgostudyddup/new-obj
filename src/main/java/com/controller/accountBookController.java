@@ -1,21 +1,20 @@
 package com.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import com.bean.accountBook;
+import com.bean.AccountBook;
 
 import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import com.service.AccountBookService;
 
-import com.service.accountBookService;
+@CrossOrigin
 @Controller
 @RequestMapping("zb")
-public class accountBookController {
+public class AccountBookController {
     @Autowired
-    accountBookService accountBookService;
+    AccountBookService accountBookService;
 
     /**
      * 接口名:delete
@@ -40,7 +39,7 @@ public class accountBookController {
      */
     @RequestMapping("alter")
     @ResponseBody
-    public boolean alter(accountBook accountBook){
+    public boolean alter(AccountBook accountBook){
         return accountBookService.alter(accountBook);
     }
 
@@ -54,7 +53,7 @@ public class accountBookController {
      */
     @RequestMapping("getUserAll")
     @ResponseBody
-    public List<accountBook> getUserAll(int u_id){
+    public List<AccountBook> getUserAll(int u_id){
         return accountBookService.getUserAll(u_id);
     }
 
@@ -68,7 +67,7 @@ public class accountBookController {
      */
     @RequestMapping("pushOne")
     @ResponseBody
-    public boolean push (accountBook accountBook){
+    public boolean push (AccountBook accountBook){
         System.out.println(accountBook.toString());
         return accountBookService.pushOne(accountBook);
     }
@@ -86,7 +85,7 @@ public class accountBookController {
      */
     @RequestMapping("all")
     @ResponseBody
-    public List<accountBook> getall(){
+    public List<AccountBook> getall(){
        return accountBookService.getall();
     }
 

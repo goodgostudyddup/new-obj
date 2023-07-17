@@ -19,7 +19,7 @@ const useUserStore = defineStore('user_store', {
         /**
          * 请求服务器获取用户列表
          */
-        async request(): Promise<void> {
+        async request(): Promise<boolean> {
             try {
                 this.users = await (await axios.get('/api/user/findAll')).data
             } catch {
@@ -40,10 +40,12 @@ const useUserStore = defineStore('user_store', {
                         u_id: '3',
                         u_name: '小李 1 样例',
                         u_pwd: 'l 样例',
-                        isAdmin: false
+                        isAdmin: true
                     }
-                ]    
+                ]
+                return false
             }
+            return true
         },
 
         /**
@@ -59,11 +61,11 @@ const useUserStore = defineStore('user_store', {
          */
         async refresh(): Promise<boolean> {
             try {
-                this.users = await (await axios.get('/api/user/findAll')).data
+                var data = await this.request()
             } catch {
                 return false
             }
-            return true
+            return data
         },
 
         /**
@@ -80,7 +82,7 @@ const useUserStore = defineStore('user_store', {
         },
         
         edit(target: User, e: User) {
-            console.log(target);
+            console.log(target, e);
             axios.post('/api/user/alterUser', {
                 u_id: e.u_id,
                 u_name: e.u_name,

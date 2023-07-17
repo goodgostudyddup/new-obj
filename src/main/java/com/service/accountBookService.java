@@ -1,16 +1,16 @@
 package com.service;
 import java.util.List;
 
-import com.bean.accountBook;
+import com.bean.AccountBook;
 
-public interface accountBookService {
-    public List<accountBook> getall() ;
+public interface AccountBookService {
+    public List<AccountBook> getall() ;
 
-    public List<accountBook> getUserAll(int uId);
+    public List<AccountBook> getUserAll(int uId);
 
-    boolean pushOne(accountBook accountBook);
+    boolean pushOne(AccountBook accountBook);
 
-    boolean alter(accountBook accountBook);
+    boolean alter(AccountBook accountBook);
 
     boolean delete(int j_id);
 

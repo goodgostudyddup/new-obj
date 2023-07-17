@@ -7,9 +7,6 @@
     ::-webkit-scrollbar {
         display: none;
     }
-    * {
-        /* @apply border; */
-    }
     header {
         @apply space-y-4;
     }
@@ -19,6 +16,10 @@
 
     form {
         @apply flex flex-col gap-2 max-w-md;
+    }
+
+    label {
+        @apply flex items-center justify-between;
     }
 
     h1,
@@ -53,6 +54,10 @@
         @apply bg-[var(--md-sys-color-surface-container-low)] text-[var(--md-sys-color-on-surface)] outline-none rounded-xl px-4 py-2;
     }
 
+    .elevation {
+        --md-elevation-level: 2;
+        transition: all 0.15s;
+    }
     :root {
         --md-sys-color-background: #f7fbf2;
         --md-sys-color-on-background: #181d18;
@@ -135,6 +140,9 @@
 @layer components {
     .rotate {
         animation: rotateAnimate 4s infinite linear;
+    }
+    .transition {
+        transition: all 0.15s;;
     }
     
 }

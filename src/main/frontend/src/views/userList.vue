@@ -72,16 +72,10 @@ onMounted(() => {
 })
 
 const pending = ref<boolean>(false)
-const refresh = () => {
+const refresh = async () => {
     pending.value = true
-    userStore.refresh().then(e => {
-        if(e) {
-            console.log('refresh success');
-        } else {
-            console.log('refresh error');
-        }
-        pending.value = false
-    })
+    await userStore.refresh()
+    pending.value = false
 }
 
 /**
